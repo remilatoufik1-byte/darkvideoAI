@@ -1,41 +1,19 @@
-import "dotenv/config";
-import express from "express";
-import fetch from "node-fetch";
-
+const express = require("express");
 const app = express();
+
 app.use(express.json());
 
-// === إعدادات البيئة ===
-const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "ضع_التوكن_هنا";
-const CHAT_ID = process.env.TELEGRAM_CHAT_ID || "ضع_معرف_الشات_هنا";
-
+// الصفحة الرئيسية
 app.get("/", (req, res) => {
-  res.send('<h1>🚀 DarkVideo AI is live!</h1><p>منصتك تعمل الآن على Vercel ✅</p>');
+  res.send("<h1>🚀 DarkVideo AI is live!</h1><p>منصتك تعمل الآن على Vercel ✅</p>");
 });
 
+// صفحة API للتأكد أن السيرفر يعمل
 app.get("/api/status", (req, res) => {
   res.json({ status: "success", message: "DarkVideo AI API is running 🚀" });
 });
 
-// === مثال إرسال رسالة لتليجرام ===
-async function sendMessage(text) {
-  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-  try {
-    await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: CHAT_ID, text })
-    });
-    console.log("✅ تم إرسال الرسالة:", text);
-  } catch (err) {
-    console.error("❌ خطأ في إرسال الرسالة:", err);
-  }
-}
-
-// === تشغيل السيرفر ===
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 DarkVideo AI يعمل الآن على المنفذ ${PORT}`);
-  // أرسل رسالة تجريبية عند التشغيل
-  sendMessage("✅ DarkVideo AI Bot تم تشغيله بنجاح!");
+  console.log(`✅ Server running on port ${PORT}`);
 });
