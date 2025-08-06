@@ -35,3 +35,17 @@ app.listen(PORT, () => {
   // أرسل رسالة تجريبية عند التشغيل
   sendMessage("✅ DarkVideo AI Bot تم تشغيله بنجاح!");
 });
+const express = require('express');
+const app = express();
+
+// صفحة تجريبية رئيسية
+app.get('/', (req, res) => {
+  res.send('<h1>🚀 DarkVideo AI is live!</h1><p>منصتك تعمل الآن على Vercel ✅</p>');
+});
+
+// صفحة API تجريبية
+app.get('/api/status', (req, res) => {
+  res.json({ status: 'success', message: 'DarkVideo AI API is running 🚀' });
+});
+
+module.exports = app;
